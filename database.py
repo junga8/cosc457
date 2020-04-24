@@ -87,18 +87,34 @@ class pat_interface(tk.Frame):
         label = tk.Label(self, text = 'Select a patient:', font = controller.title_font)
         label.grid(columnspan = 2)
 
+        cursor.execute('SELECT FNAME, LNAME FROM PATIENT')
+        myresult=cursor.fetchall()
+        i=0
+        k=2
 
+        
+        names=[]
+        for row in myresult:
+            fullname= row[1]+', '+row[0] #what appears on button
+            names.append(row[0]) #first name of patients
+            tk.Button(self, text = fullname, width = 10, command = lambda i=i: setName(self,parent,controller, names[i])).grid(row = int(k/2)+1, column = k%2)
+            k+=1 #deals with column/row spacing of buttons
+            i+=1 #deals with list of first names
+        
+        
 
-        pat1_button = tk.Button(self, text = 'Doe, John', width = 10, command = lambda: setName(self,parent,controller, 'John'))
-        pat1_button.grid(row = 2, column = 0)
-        pat2_button = tk.Button(self, text = 'Long, Jake', width = 10, command = lambda: setName(self,parent,controller, 'Jake'))
-        pat2_button.grid(row = 2, column = 1)
-        pat3_button = tk.Button(self, text = 'Diez, Joe', width = 10, command = lambda: setName(self,parent,controller, 'Joe'))
-        pat3_button.grid(row = 3, column = 0)
-        pat4_button = tk.Button(self, text = 'Smith, Jason', width = 10, command = lambda: setName(self,parent,controller, 'Jason'))
-        pat4_button.grid(row = 3, column = 1)
-        pat5_button = tk.Button(self, text = 'Kazama, Jin', width = 10, command = lambda: setName(self,parent,controller, 'Jin'))
-        pat5_button.grid(row = 4, column = 0)
+        
+
+        # pat1_button = tk.Button(self, text = 'Doe, John', width = 10, command = lambda: setName(self,parent,controller, 'John'))
+        # pat1_button.grid(row = 2, column = 0)
+        # pat2_button = tk.Button(self, text = 'Long, Jake', width = 10, command = lambda: setName(self,parent,controller, 'Jake'))
+        # pat2_button.grid(row = 2, column = 1)
+        # pat3_button = tk.Button(self, text = 'Diez, Joe', width = 10, command = lambda: setName(self,parent,controller, 'Joe'))
+        # pat3_button.grid(row = 3, column = 0)
+        # pat4_button = tk.Button(self, text = 'Smith, Jason', width = 10, command = lambda: setName(self,parent,controller, 'Jason'))
+        # pat4_button.grid(row = 3, column = 1)
+        # pat5_button = tk.Button(self, text = 'Kazama, Jin', width = 10, command = lambda: setName(self,parent,controller, 'Jin'))
+        # pat5_button.grid(row = 4, column = 0)
         return_button = tk.Button(self, text = 'Return to Main Menu', width = 16, command = lambda: controller.show_frame("main_interface"))
         return_button.grid(columnspan = 2)
 
