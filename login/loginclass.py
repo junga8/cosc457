@@ -39,7 +39,7 @@ class login_system:
         bg_image = Label(self.root, image=self.bg_icon).pack()
 
         title = Label(self.root,
-                      text="Login in to your Account",
+                      text="Login to your Account",
                       font=("times new roman", 25, "bold"),
                       bg="light blue",
                       fg="Black",
