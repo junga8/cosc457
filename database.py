@@ -468,30 +468,33 @@ class new_appt(tk.Frame):
         tk.Label(self, text="Account Number").grid(row=3)
         tk.Label(self, text="Doctor ID").grid(row=4)
         tk.Label(self, text="Receptionist ID").grid(row=5)
+        tk.Label(self, text="Appointment Date").grid(row=6)
 
         test_entry = tk.Entry(self)
         accNum_entry = tk.Entry(self)
         doctor_entry = tk.Entry(self)
         recept_entry = tk.Entry(self)
+        appt_entry = tk.Entry(self)
 
         test_entry.grid(row=2, column=1)
         accNum_entry.grid(row=3, column=1)
         doctor_entry.grid(row=4, column=1)
         recept_entry.grid(row=5, column=1)
+        appt_entry.grid(row=6, column=1)
 
         def save():
             print("Updated Appointment Info")
 
             cursor.execute(
-                 'INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID) VALUES('+'\''+test_entry.get()+'\', \''
-             +accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\');')
+                 'INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID, appt_date) VALUES('+'\''+test_entry.get()+'\', \''
+             +accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\', \''+appt_entry.get()+'\');')
             
-            #print('INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID) VALUES('+'\''+test_entry.get()+'\', \''+accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\');')
+            # print('INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID, appt_date) VALUES('+'\''+test_entry.get()+'\', \''+accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\', \''+appt_entry.get()+'\');')
             # cursor.execute('''
             # INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID)
             # VALUES('PHYSICAL', '123456', '1', '1R');
             # ''')
-            # db.commit()
+            db.commit()
 
         tk.Button(self, text='Save', command=lambda: save()).grid(row=9,
                                                                   column=1,
@@ -517,28 +520,32 @@ class create_appt(tk.Frame):
         tk.Label(self, text="Account Number").grid(row=3)
         tk.Label(self, text="Doctor ID").grid(row=4)
         tk.Label(self, text="Receptionist ID").grid(row=5)
+        tk.Label(self, text="Appointment Date").grid(row=6)
+
 
         test_entry = tk.Entry(self)
         accNum_entry = tk.Entry(self)
         doctor_entry = tk.Entry(self)
         recept_entry = tk.Entry(self)
+        appt_entry = tk.Entry(self)
 
         test_entry.grid(row=2, column=1)
         accNum_entry.grid(row=3, column=1)
         doctor_entry.grid(row=4, column=1)
         recept_entry.grid(row=5, column=1)
+        appt_entry.grid(row=6, column=1)
 
         def save():
             print("Updated Appointment Info")
 
             cursor.execute(
-                 'INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID) VALUES('+'\''+test_entry.get()+'\', \''
-             +accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\');')
+                 'INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID, appt_date) VALUES('+'\''+test_entry.get()+'\', \''
+             +accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\', \''+appt_entry.get()+'\');')
             #print('INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID) VALUES('+test_entry.get()+', \''+accNum_entry.get()+'\', \''+doctor_entry.get()+'\', \''+recept_entry.get()+'\');')
             # cursor.execute('''
-            # INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID)
-            # VALUES('PHYSICAL', '123456', '1', '1R');
-            # ''')
+            # # INSERT INTO APPOINTMENTS(TEST, ACCOUNT_NUM, DOCTOR_ID, RECEPT_ID)
+            # # VALUES('PHYSICAL', '123456', '1', '1R');
+            # # ''')
             db.commit()
 
         tk.Button(self, text='Save', command=lambda: save()).grid(row=9,
@@ -619,14 +626,14 @@ class new_rec(tk.Frame):
             print("Updated Record Info")
 
             cursor.execute(
-                'INSERT INTO PATIENT_ACCOUNT(ACCOUNT_NUM, DOCUMENT) VALUES(' +
+                'INSERT INTO RECORD(ACCOUNT_NUM, DOCUMENT) VALUES(' +
                 acct_num_entry.get() + ', \'' + doc_entry.get() + '\');')
             #print('INSERT INTO PATIENT_ACCOUNT(ACCOUNT_NUM, DOCUMENT) VALUES('+acct_num_entry.get()+', \''+doc_entry.get()+'\');')
             # cursor.execute('''
             # INSERT INTO RECORD(ACCOUNT_NUM, DOCUMENT)
             # VALUES(123456, 'test had a surgery done.');
             # ''')
-            # db.commit()
+            db.commit()
 
         tk.Button(self, text='Save', command=lambda: save()).grid(row=9,
                                                                   column=1,
@@ -854,9 +861,9 @@ def appt():
     flag=False
     for row in myresult:
         if (flag):
-            temp1='\nTest: '+row[0]+'\nDoctor ID: '+row[2]+ '\nReceptionist ID: '+row[3]
+            temp1='\nTest: '+row[0]+'\nDoctor ID: '+row[2]+ '\nReceptionist ID: '+row[3]+ '\nAppointment Date: '+str(row[4])
         else:
-            msg = "Test: " + row[0] + "\nAccount Number: " + row[1] + "\nDoctor ID: " + row[2] + "\nReceptionist ID: " + row[3]
+            msg = "Test: " + row[0] + "\nAccount Number: " + row[1] + "\nDoctor ID: " + row[2] + "\nReceptionist ID: " + row[3]+ '\nAppointment Date: '+str(row[4])
         flag=True
         temp.append(temp1)
     msg=msg+'\n'.join(temp)
